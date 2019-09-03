@@ -35,45 +35,50 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String CHANNEL_ID = "quotistic";
-    private NotificationManager manager;
-    private void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-            CharSequence name = "quotistic_goodmorning";
-            String desc = "quotistic_morning_notif";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,name,importance);
-            manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
-    }
+//    private String CHANNEL_ID = "quotistic";
+//    private NotificationManager manager;
+//    private void createNotificationChannel(){
+//        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+//            CharSequence name = "quotistic_goodmorning";
+//            String desc = "quotistic_morning_notif";
+//            int importance = NotificationManager.IMPORTANCE_HIGH;
+//
+//            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,name,importance);
+//            manager = getSystemService(NotificationManager.class);
+//            manager.createNotificationChannel(channel);
+//        }
+//    }
 
     ArrayList<String> quotesList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createNotificationChannel();
+//        createNotificationChannel();
 
-        // todo:  Experimental Code for Timed Notifications---------------------
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher_new)
-                .setContentTitle("Good Morning!")
-                .setContentText("Start your day with a huge smile :D")
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("Start your day with a huge smile and lots of motivation!"))
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
-        NotificationManagerCompat compat = NotificationManagerCompat.from(this);
-        manager.notify(0,builder.build());
-        // todo:  Experimental Code for Timed Notifications---------------------
+//         todo:  Experimental Code for Timed Notifications---------------------
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID)
+//                .setSmallIcon(R.mipmap.ic_launcher_new)
+//                .setContentTitle("Good Morning!")
+//                .setContentText("Start your day with a huge smile :D")
+//                .setStyle(new NotificationCompat.BigTextStyle().bigText("Start your day with a huge smile and lots of motivation!"))
+//                .setPriority(NotificationCompat.PRIORITY_HIGH);
+//        NotificationManagerCompat compat = NotificationManagerCompat.from(this);
+//        manager.notify(0,builder.build());
+//         todo:  Experimental Code for Timed Notifications---------------------
+        View decorView = getWindow().getDecorView();
 
         final TextView textView = findViewById(R.id.textview1);
         Typeface customFont2 = Typeface.createFromAsset(getAssets(),"fonts/lobster.otf");
+        Typeface productSans = Typeface.createFromAsset(getAssets(),"fonts/productsans.ttf");
 
         textView.setTypeface(customFont2);
         final MaterialButton nextButton = findViewById(R.id.nextButton);
         final ProgressBar progressBar = findViewById(R.id.progressBar);
         final MaterialButton copyButton = findViewById(R.id.copyButton);
+
+        nextButton.setTypeface(productSans);
+        copyButton.setTypeface(productSans);
 
         progressBar.setVisibility(View.VISIBLE);
         nextButton.setEnabled(false);
@@ -109,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Random rand = new Random();
 
+
+
                 final Animation fadeOut = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
                 final Animation fadeIn = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in_main);
 
@@ -143,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
                 text.setTextColor(Color.BLACK);
                 text.setShadowLayer(0,0,0,Color.WHITE);
                 t.show();
-
             }
         });
     }
